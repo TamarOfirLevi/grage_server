@@ -10,5 +10,6 @@ namespace GarageModels
     {
         public const string employeeStatus = "Employee_kind";
         public const string mishapStatus = "Mishap_status";
+
     }
 }
