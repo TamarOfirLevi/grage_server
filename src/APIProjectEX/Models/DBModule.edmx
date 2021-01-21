@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Garage_of_carsModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Employee_Status">
+          <Key>
+            <PropertyRef Name="employee_status_code" />
+          </Key>
+          <Property Name="employee_status_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description_of_the_status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mishap_Status">
+          <Key>
+            <PropertyRef Name="mishap_status_code" />
+          </Key>
+          <Property Name="mishap_status_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description_of_the_status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Garage_of_cars.dbo.Mishap_To_Worker' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Mishap_To_Worker">
+          <Key>
+            <PropertyRef Name="code" />
+            <PropertyRef Name="mishap_code" />
+            <PropertyRef Name="Worker_id" />
+            <PropertyRef Name="start_date" />
+          </Key>
+          <Property Name="code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mishap_code" Type="int" Nullable="false" />
+          <Property Name="Worker_id" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="start_date" Type="datetime" Nullable="false" />
+          <Property Name="end_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Mishaps">
+          <Key>
+            <PropertyRef Name="mishap_code" />
+          </Key>
+          <Property Name="mishap_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mishap_description" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="num_of_credits" Type="int" Nullable="false" />
+          <Property Name="mishap_urgency" Type="int" Nullable="false" />
+          <Property Name="mishap_status_code" Type="int" Nullable="false" />
+          <Property Name="mishap_img" Type="image" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Garage_of_cars.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_user" />
+            <PropertyRef Name="users_name" />
+          </Key>
+          <Property Name="id_user" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="users_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Workers">
+          <Key>
+            <PropertyRef Name="id_worker" />
+          </Key>
+          <Property Name="id_worker" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tel_number" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="adress" Type="varchar" MaxLength="50" />
+          <Property Name="num_of_credits" Type="int" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="employee_code" Type="int" />
+        </EntityType>
+        <Association Name="FK_Employee_Status_Employee_Status">
+          <End Role="Employee_Status" Type="Self.Employee_Status" Multiplicity="1" />
+          <End Role="Employee_Status1" Type="Self.Employee_Status" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee_Status">
+              <PropertyRef Name="employee_status_code" />
+            </Principal>
+            <Dependent Role="Employee_Status1">
+              <PropertyRef Name="employee_status_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mishap_To_Worker_mishap_code">
+          <End Role="Mishaps" Type="Self.Mishaps" Multiplicity="1" />
+          <End Role="Mishap_To_Worker" Type="Self.Mishap_To_Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mishaps">
+              <PropertyRef Name="mishap_code" />
+            </Principal>
+            <Dependent Role="Mishap_To_Worker">
+              <PropertyRef Name="mishap_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mishap_To_Worker_Workers">
+          <End Role="Workers" Type="Self.Workers" Multiplicity="1" />
+          <End Role="Mishap_To_Worker" Type="Self.Mishap_To_Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workers">
+              <PropertyRef Name="id_worker" />
+            </Principal>
+            <Dependent Role="Mishap_To_Worker">
+              <PropertyRef Name="Worker_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mishaps_Mishap_Status">
+          <End Role="Mishap_Status" Type="Self.Mishap_Status" Multiplicity="1" />
+          <End Role="Mishaps" Type="Self.Mishaps" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Mishap_Status">
+              <PropertyRef Name="mishap_status_code" />
+            </Principal>
+            <Dependent Role="Mishaps">
+              <PropertyRef Name="mishap_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workers_Employee_Status">
+          <End Role="Employee_Status" Type="Self.Employee_Status" Multiplicity="0..1" />
+          <End Role="Workers" Type="Self.Workers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee_Status">
+              <PropertyRef Name="employee_status_code" />
+            </Principal>
+            <Dependent Role="Workers">
+              <PropertyRef Name="employee_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Garage_of_carsModel1StoreContainer">
+          <EntitySet Name="Employee_Status" EntityType="Self.Employee_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mishap_Status" EntityType="Self.Mishap_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mishaps" EntityType="Self.Mishaps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Workers" EntityType="Self.Workers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mishap_To_Worker" EntityType="Self.Mishap_To_Worker" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Mishap_To_Worker].[code] AS [code], 
+    [Mishap_To_Worker].[mishap_code] AS [mishap_code], 
+    [Mishap_To_Worker].[Worker_id] AS [Worker_id], 
+    [Mishap_To_Worker].[start_date] AS [start_date], 
+    [Mishap_To_Worker].[end_date] AS [end_date]
+    FROM [dbo].[Mishap_To_Worker] AS [Mishap_To_Worker]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Users].[id_user] AS [id_user], 
+    [Users].[users_name] AS [users_name]
+    FROM [dbo].[Users] AS [Users]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Employee_Status_Employee_Status" Association="Self.FK_Employee_Status_Employee_Status">
+            <End Role="Employee_Status" EntitySet="Employee_Status" />
+            <End Role="Employee_Status1" EntitySet="Employee_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mishap_To_Worker_mishap_code" Association="Self.FK_Mishap_To_Worker_mishap_code">
+            <End Role="Mishaps" EntitySet="Mishaps" />
+            <End Role="Mishap_To_Worker" EntitySet="Mishap_To_Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mishap_To_Worker_Workers" Association="Self.FK_Mishap_To_Worker_Workers">
+            <End Role="Workers" EntitySet="Workers" />
+            <End Role="Mishap_To_Worker" EntitySet="Mishap_To_Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mishaps_Mishap_Status" Association="Self.FK_Mishaps_Mishap_Status">
+            <End Role="Mishap_Status" EntitySet="Mishap_Status" />
+            <End Role="Mishaps" EntitySet="Mishaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workers_Employee_Status" Association="Self.FK_Workers_Employee_Status">
+            <End Role="Employee_Status" EntitySet="Employee_Status" />
+            <End Role="Workers" EntitySet="Workers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Garage_of_carsModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Employee_Status">
+          <Key>
+            <PropertyRef Name="employee_status_code" />
+          </Key>
+          <Property Name="employee_status_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description_of_the_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee_Status1" Relationship="Self.FK_Employee_Status_Employee_Status" FromRole="Employee_Status" ToRole="Employee_Status1" />
+          <NavigationProperty Name="Employee_Status2" Relationship="Self.FK_Employee_Status_Employee_Status" FromRole="Employee_Status1" ToRole="Employee_Status" />
+          <NavigationProperty Name="Workers" Relationship="Self.FK_Workers_Employee_Status" FromRole="Employee_Status" ToRole="Workers" />
+        </EntityType>
+        <EntityType Name="Mishap_Status">
+          <Key>
+            <PropertyRef Name="mishap_status_code" />
+          </Key>
+          <Property Name="mishap_status_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description_of_the_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Mishaps" Relationship="Self.FK_Mishaps_Mishap_Status" FromRole="Mishap_Status" ToRole="Mishaps" />
+        </EntityType>
+        <EntityType Name="Mishaps">
+          <Key>
+            <PropertyRef Name="mishap_code" />
+          </Key>
+          <Property Name="mishap_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mishap_description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="num_of_credits" Type="Int32" Nullable="false" />
+          <Property Name="mishap_urgency" Type="Int32" Nullable="false" />
+          <Property Name="mishap_status_code" Type="Int32" Nullable="false" />
+          <Property Name="mishap_img" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Mishap_Status" Relationship="Self.FK_Mishaps_Mishap_Status" FromRole="Mishaps" ToRole="Mishap_Status" />
+          <NavigationProperty Name="Mishap_To_Worker" Relationship="Self.FK_Mishap_To_Worker_mishap_code" FromRole="Mishaps" ToRole="Mishap_To_Worker" />
+        </EntityType>
+        <EntityType Name="Workers">
+          <Key>
+            <PropertyRef Name="id_worker" />
+          </Key>
+          <Property Name="id_worker" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tel_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="num_of_credits" Type="Int32" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_code" Type="Int32" />
+          <NavigationProperty Name="Employee_Status" Relationship="Self.FK_Workers_Employee_Status" FromRole="Workers" ToRole="Employee_Status" />
+          <NavigationProperty Name="Mishap_To_Worker" Relationship="Self.FK_Mishap_To_Worker_Workers" FromRole="Workers" ToRole="Mishap_To_Worker" />
+        </EntityType>
+        <EntityType Name="Mishap_To_Worker">
+          <Key>
+            <PropertyRef Name="code" />
+            <PropertyRef Name="mishap_code" />
+            <PropertyRef Name="Worker_id" />
+            <PropertyRef Name="start_date" />
+          </Key>
+          <Property Name="code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mishap_code" Type="Int32" Nullable="false" />
+          <Property Name="Worker_id" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Mishaps" Relationship="Self.FK_Mishap_To_Worker_mishap_code" FromRole="Mishap_To_Worker" ToRole="Mishaps" />
+          <NavigationProperty Name="Workers" Relationship="Self.FK_Mishap_To_Worker_Workers" FromRole="Mishap_To_Worker" ToRole="Workers" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_user" />
+            <PropertyRef Name="users_name" />
+          </Key>
+          <Property Name="id_user" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="users_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Employee_Status_Employee_Status">
+          <End Role="Employee_Status" Type="Self.Employee_Status" Multiplicity="1" />
+          <End Role="Employee_Status1" Type="Self.Employee_Status" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee_Status">
+              <PropertyRef Name="employee_status_code" />
+            </Principal>
+            <Dependent Role="Employee_Status1">
+              <PropertyRef Name="employee_status_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workers_Employee_Status">
+          <End Role="Employee_Status" Type="Self.Employee_Status" Multiplicity="0..1" />
+          <End Role="Workers" Type="Self.Workers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee_Status">
+              <PropertyRef Name="employee_status_code" />
+            </Principal>
+            <Dependent Role="Workers">
+              <PropertyRef Name="employee_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mishaps_Mishap_Status">
+          <End Role="Mishap_Status" Type="Self.Mishap_Status" Multiplicity="1" />
+          <End Role="Mishaps" Type="Self.Mishaps" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Mishap_Status">
+              <PropertyRef Name="mishap_status_code" />
+            </Principal>
+            <Dependent Role="Mishaps">
+              <PropertyRef Name="mishap_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mishap_To_Worker_mishap_code">
+          <End Role="Mishaps" Type="Self.Mishaps" Multiplicity="1" />
+          <End Role="Mishap_To_Worker" Type="Self.Mishap_To_Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mishaps">
+              <PropertyRef Name="mishap_code" />
+            </Principal>
+            <Dependent Role="Mishap_To_Worker">
+              <PropertyRef Name="mishap_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mishap_To_Worker_Workers">
+          <End Role="Workers" Type="Self.Workers" Multiplicity="1" />
+          <End Role="Mishap_To_Worker" Type="Self.Mishap_To_Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workers">
+              <PropertyRef Name="id_worker" />
+            </Principal>
+            <Dependent Role="Mishap_To_Worker">
+              <PropertyRef Name="Worker_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Garage_of_carsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employee_Status" EntityType="Self.Employee_Status" />
+          <EntitySet Name="Mishap_Status" EntityType="Self.Mishap_Status" />
+          <EntitySet Name="Mishaps" EntityType="Self.Mishaps" />
+          <EntitySet Name="Workers" EntityType="Self.Workers" />
+          <EntitySet Name="Mishap_To_Worker" EntityType="Self.Mishap_To_Worker" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Employee_Status_Employee_Status" Association="Self.FK_Employee_Status_Employee_Status">
+            <End Role="Employee_Status" EntitySet="Employee_Status" />
+            <End Role="Employee_Status1" EntitySet="Employee_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workers_Employee_Status" Association="Self.FK_Workers_Employee_Status">
+            <End Role="Employee_Status" EntitySet="Employee_Status" />
+            <End Role="Workers" EntitySet="Workers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mishaps_Mishap_Status" Association="Self.FK_Mishaps_Mishap_Status">
+            <End Role="Mishap_Status" EntitySet="Mishap_Status" />
+            <End Role="Mishaps" EntitySet="Mishaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mishap_To_Worker_mishap_code" Association="Self.FK_Mishap_To_Worker_mishap_code">
+            <End Role="Mishaps" EntitySet="Mishaps" />
+            <End Role="Mishap_To_Worker" EntitySet="Mishap_To_Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mishap_To_Worker_Workers" Association="Self.FK_Mishap_To_Worker_Workers">
+            <End Role="Workers" EntitySet="Workers" />
+            <End Role="Mishap_To_Worker" EntitySet="Mishap_To_Worker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Garage_of_carsModel1StoreContainer" CdmEntityContainer="Garage_of_carsEntities1">
+          <EntitySetMapping Name="Employee_Status">
+            <EntityTypeMapping TypeName="Garage_of_carsModel1.Employee_Status">
+              <MappingFragment StoreEntitySet="Employee_Status">
+                <ScalarProperty Name="employee_status_code" ColumnName="employee_status_code" />
+                <ScalarProperty Name="description_of_the_status" ColumnName="description_of_the_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mishap_Status">
+            <EntityTypeMapping TypeName="Garage_of_carsModel1.Mishap_Status">
+              <MappingFragment StoreEntitySet="Mishap_Status">
+                <ScalarProperty Name="mishap_status_code" ColumnName="mishap_status_code" />
+                <ScalarProperty Name="description_of_the_status" ColumnName="description_of_the_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mishaps">
+            <EntityTypeMapping TypeName="Garage_of_carsModel1.Mishaps">
+              <MappingFragment StoreEntitySet="Mishaps">
+                <ScalarProperty Name="mishap_code" ColumnName="mishap_code" />
+                <ScalarProperty Name="mishap_description" ColumnName="mishap_description" />
+                <ScalarProperty Name="num_of_credits" ColumnName="num_of_credits" />
+                <ScalarProperty Name="mishap_urgency" ColumnName="mishap_urgency" />
+                <ScalarProperty Name="mishap_status_code" ColumnName="mishap_status_code" />
+                <ScalarProperty Name="mishap_img" ColumnName="mishap_img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workers">
+            <EntityTypeMapping TypeName="Garage_of_carsModel1.Workers">
+              <MappingFragment StoreEntitySet="Workers">
+                <ScalarProperty Name="id_worker" ColumnName="id_worker" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="tel_number" ColumnName="tel_number" />
+                <ScalarProperty Name="adress" ColumnName="adress" />
+                <ScalarProperty Name="num_of_credits" ColumnName="num_of_credits" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="employee_code" ColumnName="employee_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mishap_To_Worker">
+            <EntityTypeMapping TypeName="Garage_of_carsModel1.Mishap_To_Worker">
+              <MappingFragment StoreEntitySet="Mishap_To_Worker">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="mishap_code" ColumnName="mishap_code" />
+                <ScalarProperty Name="Worker_id" ColumnName="Worker_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Garage_of_carsModel1.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="users_name" ColumnName="users_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

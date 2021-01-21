@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1ee599ad99384195a72083ef9a054844" Name="Diagram1">
+        <EntityTypeShape EntityType="Garage_of_carsModel1.Employee_Status" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Garage_of_carsModel1.Mishap_Status" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Garage_of_carsModel1.Mishaps" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Garage_of_carsModel1.Workers" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Garage_of_carsModel1.Mishap_To_Worker" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Garage_of_carsModel1.Users" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="Garage_of_carsModel1.FK_Employee_Status_Employee_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="Garage_of_carsModel1.FK_Workers_Employee_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="Garage_of_carsModel1.FK_Mishaps_Mishap_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="Garage_of_carsModel1.FK_Mishap_To_Worker_mishap_code" ManuallyRouted="false" />
+        <AssociationConnector Association="Garage_of_carsModel1.FK_Mishap_To_Worker_Workers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
