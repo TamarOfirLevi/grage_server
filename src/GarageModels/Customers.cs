@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GarageModels
 {
-    class Customers
+    public class Customers
     {
         public string id_customer { get; set; }
         public string first_name { get; set; }

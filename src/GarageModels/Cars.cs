@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GarageModels
 {
-    class Cars
+    public class Cars
     {
         public string car_number { get; set; }
 

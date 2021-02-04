@@ -9,7 +9,7 @@ namespace GarageModels
    public class Mishaps
     {
         public int mishap_code { get; set; }
-        public string car_number { get; set; }
+        public Cars car_number { get; set; }
         public string mishap_description { get; set; }
         public int num_of_credits { get; set; }
         public int mishap_urgency { get; set; }
