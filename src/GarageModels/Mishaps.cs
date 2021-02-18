@@ -13,7 +13,7 @@ namespace GarageModels
         public string mishap_description { get; set; }
         public int num_of_credits { get; set; }
         public int mishap_urgency { get; set; }
-        public Mishap_status Mishap_status { get; set; }
+        public Mishap_status mishap_status_code { get; set; }
         //public      mishap_img :any;
 
         public float mishap_price { get; set; }

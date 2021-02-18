@@ -16,7 +16,7 @@ namespace GarageDAL
     {
         public int code { get; set; }
         public int mishap_code { get; set; }
-        public string worker_id { get; set; }
+        public int worker_id { get; set; }
         public System.DateTime start_date { get; set; }
         public System.DateTime end_date { get; set; }
     

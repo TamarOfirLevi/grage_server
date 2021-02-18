@@ -9,7 +9,7 @@ namespace GarageDAL
 {
   public  class WorkerDataBase
     {
-        public static void deleteWorkerByID(string id)
+        public static void deleteWorkerByID(int id)
         {
             try
             {
@@ -25,14 +25,14 @@ namespace GarageDAL
                 throw ex;
             }
         }
-        public static Worker getUser(string userName, string password, string include)
+        public static Worker getWorker(int id_worker, string password, string include)
         {
             Worker w = new Worker();
             try
             {
                 using (garage_of_carsEntities db = new garage_of_carsEntities())
                 {
-                    var worker = db.Workers.Include(include).First(c => c.id_worker == userName&&c.password==password);
+                    var worker = db.Workers.Include(include).First(c => c.id_worker == id_worker);
                     w = worker;
                
                 }
@@ -44,7 +44,7 @@ namespace GarageDAL
             return w;
         }
 
-        public static Worker getWorkerByID(string id, string include)
+        public static Worker getWorkerByID(int id, string include)
         {
             try
             {

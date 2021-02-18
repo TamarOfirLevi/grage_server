@@ -8,7 +8,7 @@ namespace GarageModels
 {
     public class Consts
     {
-        public const string employeeStatus = "Employee_kind";
-        public const string mishapStatus = "Mishap_status";
+        public const string employeeStatus = "Employee_Status";
+        public const string mishapStatus = "Mishap_Status";
     }
 }

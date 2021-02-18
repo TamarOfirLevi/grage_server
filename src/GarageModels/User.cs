@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace GarageModels
 {
-   public class Workers
+    public class User
     {
-        public int id_worker { get; set; }
+
+        public string id_user { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
         public string tel_number { get; set; }
         public string address { get; set; }
-        public int num_of_credits { get; set; }
+        public System.DateTime registertion_date { get; set; }
+        public string mail_address { get; set; }
         public string password { get; set; }
-        public Employee_kind employee_code { get; set; }
-        public virtual User User { get; set; }
-
-
     }
 }

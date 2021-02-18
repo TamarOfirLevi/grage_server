@@ -12,20 +12,27 @@ namespace GarageDAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Car
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Car()
+        public User()
         {
-            this.Mishaps = new HashSet<Mishap>();
+            this.Cars = new HashSet<Car>();
+            this.Workers = new HashSet<Worker>();
         }
     
-        public string car_number { get; set; }
         public string id_user { get; set; }
-        public string car_description { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string tel_number { get; set; }
+        public string address { get; set; }
+        public System.DateTime registertion_date { get; set; }
+        public string mail_address { get; set; }
+        public string password { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mishap> Mishaps { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Worker> Workers { get; set; }
     }
 }

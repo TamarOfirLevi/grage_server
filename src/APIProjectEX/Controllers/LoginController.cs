@@ -27,7 +27,7 @@ namespace APIProjectEX.Controllers
  [System.Web.Http.HttpGet]
         //[System.Web.Http.Route("{id}"),("{password}")]
         //[EnableCors(origins: "http://localhost:4200/", headers: "*", methods: "*")]
-        public HttpResponseMessage Login(string userID , string password)
+        public HttpResponseMessage Login(int userID , string password)
         {
 
          var res=   WorkerBl.GetUser(userID, password);

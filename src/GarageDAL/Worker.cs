@@ -20,17 +20,14 @@ namespace GarageDAL
             this.Mishap_for_employee = new HashSet<Mishap_for_employee>();
         }
     
-        public string id_worker { get; set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
-        public string tel_number { get; set; }
-        public string address { get; set; }
+        public int id_worker { get; set; }
         public Nullable<int> num_of_credits { get; set; }
-        public string password { get; set; }
-        public int employee_code { get; set; }
+        public int employee_kind_code { get; set; }
+        public string id_user { get; set; }
     
         public virtual Employee_kind Employee_kind { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mishap_for_employee> Mishap_for_employee { get; set; }
+        public virtual User User { get; set; }
     }
 }

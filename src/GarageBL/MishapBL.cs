@@ -19,12 +19,11 @@ namespace GarageBL
         {
             var mishapsDAL = new GarageDAL.Mishap()
             {
-                car_number = mishaps.car_number,
                 mishap_description = mishaps.mishap_description,
                 num_of_credits = mishaps.num_of_credits,
                 mishap_urgency = mishaps.mishap_urgency,
-                mishap_status_code = mishaps.Mishap_status.mishap_status_code,
-                mishap_price= mishaps.mishap_price
+                mishap_status_code =mishaps.mishap_status_code.mishap_status_code
+
             };
 
             //Mapper.Initialize(cfg => {
@@ -43,7 +42,7 @@ namespace GarageBL
         }
         public static Mishaps GetMishapByCode(int code)
         {
-            var mishap = MishapDataBase.MishapDal.GetMishapByCode(code, "Mishap_status");
+            var mishap = MishapDataBase.MishapDal.GetMishapByCode(code, "Mishap_Status");
 
             Mishaps mishapsesDto = new Mishaps()
             {
@@ -51,7 +50,7 @@ namespace GarageBL
                 mishap_description = mishap.mishap_description,
                 num_of_credits = mishap.num_of_credits,
                 mishap_urgency = mishap.mishap_urgency,
-                Mishap_status = new GarageModels.Mishap_status
+                mishap_status_code = new GarageModels.Mishap_status
                 {
                     description_of_the_status = mishap.Mishap_status.description_of_the_status,
                     mishap_status_code = mishap.Mishap_status.mishap_status_code
@@ -89,7 +88,7 @@ namespace GarageBL
                     mishap_description = mishap.mishap_description,
                     num_of_credits = mishap.num_of_credits,
                     mishap_urgency = mishap.mishap_urgency,
-                    Mishap_status = new GarageModels.Mishap_status()
+                    mishap_status_code = new GarageModels.Mishap_status()
                     {
                         description_of_the_status = mishap.Mishap_status.description_of_the_status,
                         mishap_status_code = mishap.Mishap_status.mishap_status_code
@@ -118,7 +117,7 @@ namespace GarageBL
                     mishap_description = mishap.mishap_description,
                     num_of_credits = mishap.num_of_credits,
                     mishap_urgency = mishap.mishap_urgency,
-                    Mishap_status = new GarageModels.Mishap_status()
+                    mishap_status_code = new GarageModels.Mishap_status()
                     {
                         description_of_the_status = mishap.Mishap_status.description_of_the_status,
                         mishap_status_code = mishap.Mishap_status.mishap_status_code

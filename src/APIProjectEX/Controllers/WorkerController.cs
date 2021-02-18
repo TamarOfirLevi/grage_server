@@ -35,7 +35,7 @@ namespace garageMyApp.Controllers
 
         [System.Web.Http.HttpDelete]
         [System.Web.Http.Route("{id}")]
-        public void  deleteWorker(string id)
+        public void  deleteWorker(int id)
         {
              WorkerBl.deleteWorker(id);
         }
@@ -48,7 +48,7 @@ namespace garageMyApp.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("{id}")]
-        public Workers GetWorker(string id)
+        public Workers GetWorker(int id)
         {
             return WorkerBl.getWorkerByID(id);
         }

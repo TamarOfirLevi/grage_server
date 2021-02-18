@@ -16,22 +16,25 @@ namespace GarageBL
 
         public WorkerBl() {
         }
-        public static void deleteWorker(string id)
+        public static void deleteWorker(int id)
         {
             WorkerDataBase.deleteWorkerByID(id);
         }
-        public static Workers getWorkerByID(string id)
+        public static Workers getWorkerByID(int id)
         {
-            var worker = WorkerDataBase.getWorkerByID(id, "Employee_kind");
+            var worker = WorkerDataBase.getWorkerByID(id, "Employee_Status");
 
             GarageModels.Workers workersDTO = new GarageModels.Workers() {
+                User = new GarageModels.User()
+                {
+                    first_name = worker.User.first_name,
+                    last_name = worker.User.last_name,
+                    tel_number = worker.User.tel_number,
+                    address = worker.User.address
+                },
                 id_worker = worker.id_worker,
-                first_name = worker.first_name,
-                last_name = worker.last_name,
-                tel_number = worker.tel_number,
-                address = worker.address,
                 num_of_credits = worker.num_of_credits??0,
-                password = worker.password,
+                password = worker.User.password,
                 employee_code  = new GarageModels.Employee_kind()
                 {
                     description_of_the_kind = worker.Employee_kind.description_of_the_kind,
@@ -42,19 +45,25 @@ namespace GarageBL
             return workersDTO;
         }
 
-        public static Workers GetUser(string userID, string password)
+        public static Workers GetUser(int userID, string password)
         {
-            var worker = WorkerDataBase.getUser(userID, password, "Employee_Status");
+            var worker = WorkerDataBase.getWorker(userID, password, "Employee_Status");
 
             GarageModels.Workers workersDTO = new GarageModels.Workers()
             {
-                id_worker = worker.id_worker,
-                first_name = worker.first_name,
-                last_name = worker.last_name,
-                tel_number = worker.tel_number,
-                address = worker.address,
+                User = new GarageModels.User
+                {
+                    first_name = worker.User.first_name,
+                    last_name = worker.User.last_name,
+                    tel_number = worker.User.tel_number,
+                    address = worker.User.address,
+                    password = worker.User.password,
+                    mail_address = worker.User.mail_address,
+                    registertion_date = DateTime.Now
+                },
+                
+                
                 num_of_credits = worker.num_of_credits??0,
-                password = worker.password,
 
                 employee_code = new GarageModels.Employee_kind()
                 {
@@ -79,13 +88,18 @@ namespace GarageBL
             {
                 //workersDTO.Add(Mapper.Map<Worker>(worker));
                 workersDTO.Add(new GarageModels.Workers() {
+                    User = new GarageModels.User
+                    {
+                        first_name = worker.User.first_name,
+                        last_name = worker.User.last_name,
+                        tel_number = worker.User.tel_number,
+                        address = worker.User.address,
+                        password = worker.User.password,
+                    },
                     id_worker = worker.id_worker,
-                    first_name = worker.first_name,
-                    last_name= worker.last_name,
-                    tel_number= worker.tel_number,
-                    address= worker.address,
-                    num_of_credits = worker.num_of_credits??0,
-                    password= worker.password,
+                    
+                    num_of_credits= worker.num_of_credits??0,
+                    
                     employee_code = new GarageModels.Employee_kind() {
                         description_of_the_kind = worker.Employee_kind.description_of_the_kind,
                         employee_kind_code = worker.Employee_kind.employee_kind_code
